@@ -6505,9 +6505,16 @@ String TextServerAdvanced::_string_to_lower(const String &p_string, const String
 	return String::utf16(lower.ptr(), len);
 }
 
+/**
+ * Computes the positions in the given p_string to insert line breaks such that each line is limited to p_chars_per_line characters.
+ * 
+ * @param   p_string         The string to compute line breaks for.
+ * @param   p_language       The locale specifying text-breaking conventions. If set to an empty string, the default locale is used.
+ * @param   p_chars_per_line The maximum number of characters that can fit in a given line.
+ * @returns A PackedInt32Array containing the indexes in p_string that a line break can be added.
+ */
 PackedInt32Array TextServerAdvanced::_string_get_word_breaks(const String &p_string, const String &p_language, int64_t p_chars_per_line) const {
 	const String lang = (p_language.is_empty()) ? TranslationServer::get_singleton()->get_tool_locale() : p_language;
-	// Convert to UTF-16.
 	Char16String utf16 = p_string.utf16();
 
 	HashSet<int> breaks;
